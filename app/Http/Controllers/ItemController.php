@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
-use Image;
-use Storage;
-use Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class ItemController extends Controller
 {
@@ -18,7 +18,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('title','ASC')->paginate(10);
+        $items = Item::orderBy('title', 'ASC')->paginate(10);
         return view('items.index')->with('items', $items);
     }
 
@@ -30,7 +30,7 @@ class ItemController extends Controller
     public function create()
     {
         $categories = Category::all()->sortBy('name');
-        return view('items.create')->with('categories',$categories);
+        return view('items.create')->with('categories', $categories);
     }
 
     /**
@@ -40,17 +40,19 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
         //dd(storage_path());;
         //validate the data
         // if fails, defaults to create() passing errors
-        $this->validate($request, ['title'=>'required|string|max:255',
-                                   'category_id'=>'required|integer|min:0',
-                                   'description'=>'required|string',
-                                   'price'=>'required|numeric',
-                                   'quantity'=>'required|integer',
-                                   'sku'=>'required|string|max:100',
-                                   'picture' => 'required|image']); 
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|integer|min:0',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'sku' => 'required|string|max:100',
+            'picture' => 'required|image'
+        ]);
 
         //send to DB (use ELOQUENT)
         $item = new Item;
@@ -66,7 +68,7 @@ class ItemController extends Controller
             $image = $request->file('picture');
 
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $location ='images/items/' . $filename;
+            $location = 'images/items/' . $filename;
 
             $image = Image::make($image);
             Storage::disk('public')->put($location, (string) $image->encode());
@@ -75,7 +77,7 @@ class ItemController extends Controller
 
         $item->save(); //saves to DB
 
-        Session::flash('success','The item has been added');
+        Session::flash('success', 'The item has been added');
 
         //redirect
         return redirect()->route('items.index');
@@ -102,7 +104,7 @@ class ItemController extends Controller
     {
         $item = Item::find($id);
         $categories = Category::all()->sortBy('name');
-        return view('items.edit')->with('item',$item)->with('categories',$categories);
+        return view('items.edit')->with('item', $item)->with('categories', $categories);
     }
 
     /**
@@ -117,13 +119,15 @@ class ItemController extends Controller
         //validate the data
         // if fails, defaults to create() passing errors
         $item = Item::find($id);
-        $this->validate($request, ['title'=>'required|string|max:255',
-                                   'category_id'=>'required|integer|min:0',
-                                   'description'=>'required|string',
-                                   'price'=>'required|numeric',
-                                   'quantity'=>'required|integer',
-                                   'sku'=>'required|string|max:100',
-                                   'picture' => 'sometimes|image']);             
+        $this->validate($request, [
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|integer|min:0',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'sku' => 'required|string|max:100',
+            'picture' => 'sometimes|image'
+        ]);
 
         //send to DB (use ELOQUENT)
         $item->title = $request->title;
@@ -138,14 +142,14 @@ class ItemController extends Controller
             $image = $request->file('picture');
 
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $location ='images/items/' . $filename;
+            $location = 'images/items/' . $filename;
 
             $image = Image::make($image);
             Storage::disk('public')->put($location, (string) $image->encode());
 
             if (isset($item->picture)) {
                 $oldFilename = $item->picture;
-                Storage::delete('public/images/items/'.$oldFilename);                
+                Storage::delete('public/images/items/' . $oldFilename);
             }
 
             $item->picture = $filename;
@@ -153,11 +157,10 @@ class ItemController extends Controller
 
         $item->save(); //saves to DB
 
-        Session::flash('success','The item has been updated');
+        Session::flash('success', 'The item has been updated');
 
         //redirect
         return redirect()->route('items.index');
-        
     }
 
     /**
@@ -171,13 +174,12 @@ class ItemController extends Controller
         $item = Item::find($id);
         if (isset($item->picture)) {
             $oldFilename = $item->picture;
-            Storage::delete('public/images/items/'.$oldFilename);                
+            Storage::delete('public/images/items/' . $oldFilename);
         }
         $item->delete();
 
-        Session::flash('success','The item has been deleted');
+        Session::flash('success', 'The item has been deleted');
 
         return redirect()->route('items.index');
-
     }
 }
