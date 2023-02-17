@@ -38,7 +38,7 @@ Laravel Project
 				{!! Html::linkRoute('categories.index', 'Cancel', [], ['class'=>'btn btn-lg btn-danger btn-block', 'style'=>'margin-top:20px']) !!}
 				</div>
 				<div class="col-md-6">
-			    {{ Form::submit('Update Series', ['class'=>'btn btn-success btn-lg btn-block', 'style'=>'margin-top:20px']) }}
+			    {{ Form::submit('Update Category', ['class'=>'btn btn-success btn-lg btn-block', 'style'=>'margin-top:20px']) }}
 				</div>
 			</div>
 

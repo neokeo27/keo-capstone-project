@@ -108,6 +108,13 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = \App\Models\Category::find($id);
+        if ($category != null) {
+            $category->delete();
+            Session::flash('success', 'The Category has been deleted');
+        } else {
+            Session::flash('error', 'Category not found');
+        }
+        return redirect()->route('categories.index');
     }
 }

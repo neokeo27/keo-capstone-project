@@ -17,7 +17,7 @@ Laravel Project
 @endsection
 
 @section('content')
-
+<x-head.tinymce-config/>
 	<div class="row">
 		{!! Form::model($item, ['route' => ['items.update', $item->id], 'method'=>'PUT', 'data-parsley-validate' => '', 'files' => true]) !!}
 		<div class="col-md-6 col-md-offset-2">
@@ -39,8 +39,10 @@ Laravel Project
 				</select>
 
 			    {{ Form::label('description', 'Description:', ['style'=>'margin-top:20px']) }}
-			    {{ Form::textarea('description', null, ['class'=>'form-control', 
-				                                 'data-parsley-required'=>'']) }}
+					
+					<x-forms.tinymce-editor/>
+			    {{-- {{ Form::textarea('description', null, ['class'=>'form-control', 
+				                                 'data-parsley-required'=>'']) }} --}}
 
 				{{ Form::label('price', 'Price:', ['style'=>'margin-top:20px']) }}
 			    {{ Form::text('price', null, ['class'=>'form-control', 'style'=>'', 
