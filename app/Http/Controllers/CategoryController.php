@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
@@ -60,7 +61,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        //show the category that corrosponds to $id
     }
 
     /**
@@ -110,11 +111,19 @@ class CategoryController extends Controller
     {
         $category = \App\Models\Category::find($id);
         if ($category != null) {
+            //if ($category->items->count() == 0) {
             $category->delete();
             Session::flash('success', 'The Category has been deleted');
+            //}
         } else {
             Session::flash('error', 'Category not found');
         }
         return redirect()->route('categories.index');
     }
+
+    /* public function count($id)
+    {
+        $category = \App\Models\Category::find($id);
+        return $category->items;
+    }*/
 }

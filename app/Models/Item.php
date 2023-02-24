@@ -3,18 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+//use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
+    use HasFactory;
 
     public $table = 'items';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
     protected $dates = ['deleted_at'];
 
-    public function category() {
-        return $this->hasOne('\App\Category','id', 'category_id')->orderBy('name','ASC');
+    public function category()
+    {
+        return $this->hasOne('\App\Category', 'id', 'category_id')->orderBy('name', 'ASC');
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

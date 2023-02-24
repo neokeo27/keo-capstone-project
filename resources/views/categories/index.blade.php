@@ -1,7 +1,7 @@
 @extends('common') 
 
 @section('pagetitle')
-Item List
+Category List
 @endsection
 
 @section('pagename')
@@ -39,8 +39,9 @@ Laravel Project
 							<td>{{ $category->name }}</td>
 							<td style='width:100px;'>{{ date('M j, Y', strtotime($category->created_at)) }}</td>
 							<td style='width:100px;'>{{ date('M j, Y', strtotime($category->updated_at)) }}</td>
-							<td style='width:150px;'><div style='float:left; margin-right:5px;'><a href="{{ route('categories.edit', $category->id) }}" class="btn btn-success btn-sm">Edit</a></div><div style='float:left;'></div>
-								<td style='width:150px;'> <div style="float:left; margin-left:5px">
+							<td style='width:150px;'><div style='float:left; margin-right:5px;'><a href="{{ route('categories.edit', $category->id) }}" class="btn btn-success btn-sm">Edit</a></div>
+								{{-- @if($category->items->count() == 0) --}}
+								<div style="float:left; margin-left:5px">
                                                 {!! Form::open([
                                                     'route'=> ['categories.destroy', $category->id], 
                                                     'method' => 'DELETE', 
@@ -48,12 +49,15 @@ Laravel Project
                                                 ]) !!}
                                                 {{ Form::submit('Delete', ['class'=>'btn btn-sm btn-danger']) }}
                                                 {!! Form::close() !!}
-                                            </div>
+                                </div>
+								{{-- @endif --}}
 							</td>
 						</tr>
 					@endforeach
 				</tbody>
 			</table>
+			<div class="text-center" style="float-left">
+			{{!! $categories->links(); !!}}
 		</div> <!-- end of .col-md-8 -->
 	</div>
 
