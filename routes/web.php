@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::resource('items', '\App\Http\Controllers\ItemController');
-Route::resource('categories', '\App\Http\Controllers\CategoryController');
+Route::resource('items', App\Http\Controllers\ItemController::class);
+Route::resource('categories', App\Http\Controllers\CategoryController::class);
 
 Route::get('/', function () {
     return view('/home');
@@ -24,6 +24,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('items', App\Http\Controllers\ItemController::class);
-Route::resource('categories', App\Http\Controllers\CategoryController::class);
+Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
+Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items');

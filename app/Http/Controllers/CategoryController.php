@@ -45,6 +45,7 @@ class CategoryController extends Controller
         //send to DB (use ELOQUENT)
         $category = new Category;
         $category->name = $request->name;
+        $category->user_id = auth()->user()->id;
         $category->save(); //saves to DB
 
         Session::flash('success', 'The category has been added');
@@ -120,10 +121,4 @@ class CategoryController extends Controller
         }
         return redirect()->route('categories.index');
     }
-
-    /* public function count($id)
-    {
-        $category = \App\Models\Category::find($id);
-        return $category->items;
-    }*/
 }

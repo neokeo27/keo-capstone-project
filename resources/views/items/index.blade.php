@@ -9,13 +9,13 @@ Laravel Project
 @endsection
 
 @section('content')
-	
+	@if (Auth::user())
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<h1>All Items</h1>
 		</div>
 		<div class="col-md-2">
-			<a href="{{ route('items.create') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Create New Item</a>
+			<a href="{{ route('items.create') }}" class="btn btn-med btn-block btn-primary btn-h1-spacing">Create New Item</a>
 		</div>
 		<div class="col-md-12">
 			<hr />
@@ -48,10 +48,14 @@ Laravel Project
 					@endforeach
 				</tbody>
 			</table>
-			<div class="text-center">
-				{!! $items->links(); !!}
-			</div>
 		</div>
 	</div>
-
+@else
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Item List Unavailable</h1>
+			<p>Please login to add/view items.</p>
+		</div>
+	</div>	
+@endif
 @endsection

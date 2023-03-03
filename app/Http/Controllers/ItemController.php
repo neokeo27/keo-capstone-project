@@ -62,6 +62,7 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->quantity = $request->quantity;
         $item->sku = $request->sku;
+        $item->user_id = auth()->user()->id;
 
         //save image
         if ($request->hasFile('picture')) {

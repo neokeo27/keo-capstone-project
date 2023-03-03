@@ -13,8 +13,14 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    @if (Auth::user())
                     {{ __('You are logged in!') }}
+                    <div class="text-center" style="float-left">
+				        
+			        </div>
+                    @else
+                    {{__('Please login to view categories or items')}}
+                    @endif    
                 </div>
             </div>
         </div>

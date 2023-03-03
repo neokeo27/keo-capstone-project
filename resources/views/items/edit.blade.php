@@ -39,8 +39,6 @@ Laravel Project
 				</select>
 
 			    {{ Form::label('description', 'Description:', ['style'=>'margin-top:20px']) }}
-					
-				
 				<x-forms.tinymce-editor/>
 			    {{-- {{ Form::textarea('description', null, ['class'=>'form-control', 
 				                                 'data-parsley-required'=>'']) }} --}}

@@ -17,13 +17,13 @@ Laravel Project
 @endsection
 
 @section('content')
-	
+	<x-head.tinymce-config/>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<h1>Add New Item</h1>
 			<hr/>
 
-			{!! Form::open(['route' => 'items.store', 'data-parsley-validate' => '', 
+			{!! Form::open(['route' => 'items.store', 'data-parsley-validate' => '', 'enctype' => 'multipart/form-data',
 			                'files' => true]) !!}
 			    
 				{{ Form::label('title', 'Name:') }}
@@ -40,8 +40,9 @@ Laravel Project
 				</select>
 
 			    {{ Form::label('description', 'Description:', ['style'=>'margin-top:20px']) }}
-			    {{ Form::textarea('description', null, ['class'=>'form-control', 
-				                                 'data-parsley-required'=>'']) }}
+				<x-forms.tinymce-editor/>
+			    {{-- {{ Form::textarea('description', null, ['class'=>'form-control', 
+				                                 'data-parsley-required'=>'']) }} --}}
 
 				{{ Form::label('price', 'Price:', ['style'=>'margin-top:20px']) }}
 			    {{ Form::text('price', null, ['class'=>'form-control', 'style'=>'', 
