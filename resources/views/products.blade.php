@@ -1,7 +1,7 @@
 @extends('common') 
 
 @section('pagetitle')
-Item List
+Products
 @endsection
 
 @section('pagename')
@@ -12,25 +12,35 @@ Capstone Project
 	@if (Auth::user())
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<h1>All Items</h1>
+			<h1>All Products</h1>
 		</div>
-		<div class="col-md-2">
-			<a href="{{ route('items.create') }}" class="btn btn-med btn-block btn-primary btn-h1-spacing">Create New Item</a>
-		</div>
+
 		<div class="col-md-12">
 			<hr />
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-sm-1">
 			<table class="table">
+				<thead>
+					<th>Categories</th>
+				</thead>
+				<tbody>
+					<tr><td>Test1</td></tr>
+					<tr><td>Test2</td></tr>
+					<tr><td>Test3</td></tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+			{{-- <table class="table">
 				<thead>
 					<th>#</th>
 					<th>Title</th>					
 					<th>Created At</th>
 					<th>Last Modified</th>
-					<th>Category ID</th>
+					<th>Category #</th>
 					<th></th>
 				</thead>
 				<tbody>
@@ -49,15 +59,10 @@ Capstone Project
 						</tr>
 					@endforeach
 				</tbody>
-			</table>
+			</table> --}}
 		</div>
 	</div>
 @else
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<h1>Item List Unavailable</h1>
-			<p>Please login to add/view items.</p>
-		</div>
-	</div>	
+	
 @endif
 @endsection

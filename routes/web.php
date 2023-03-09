@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Auth;
 
 Route::resource('items', App\Http\Controllers\ItemController::class);
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
+Route::resource('products', App\Http\Controllers\ProductsController::class);
+Route::resource('cart', App\Http\Controllers\CartController::class);
+Route::resource('productView', App\Http\Controllers\ProductViewController::class);
 
 Route::get('/', function () {
     return view('/home');
@@ -24,5 +27,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
-Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items');
+// Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
+// Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items');
+// Route::get('/items/edit', [App\Http\Controllers\ItemController::class, 'index'])->name('items.edit');

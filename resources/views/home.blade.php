@@ -16,7 +16,10 @@
                     @if (Auth::user())
                     {{ __('You are logged in!') }}
                     <div class="text-center" style="float-left">
-				        
+				        <a href="categories" >View All Categories</a>
+			        </div>
+                    <div class="text-center" style="float-left">
+				        <a href="items" >View All Items</a>
 			        </div>
                     @else
                     {{__('Please login to view categories or items')}}

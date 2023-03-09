@@ -5,7 +5,7 @@ Category List
 @endsection
 
 @section('pagename')
-Laravel Project
+Capstone Project
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@ Laravel Project
 			<h1>Category List</h1>
 		</div>
 			<div class="col-md-2">
-				<a href="{{ route('categories.create') }}" class="btn btn-lg btn-block btn-primary btn-h1-spacing">Add Category</a>
+				<a href="{{ route('categories.create') }}" class="btn btn-med btn-block btn-primary btn-h1-spacing">Add Category</a>
 			</div>
 		<div class="col-md-12">
 			<hr />
@@ -28,6 +28,7 @@ Laravel Project
 				<thead>
 					<th>#</th>
 					<th>Name</th>
+					<th>Count</th>
 					<th>Created At</th>
 					<th>Last Modified</th>
 					<th></th>
@@ -37,6 +38,7 @@ Laravel Project
 						<tr>
 							<th>{{ $category->id }}</th>
 							<td>{{ $category->name }}</td>
+							<td>{{$category->items()->count()}}</td>
 							<td style='width:100px;'>{{ date('M j, Y', strtotime($category->created_at)) }}</td>
 							<td style='width:100px;'>{{ date('M j, Y', strtotime($category->updated_at)) }}</td>
 							<td style='width:150px;'><div style='float:left; margin-right:5px;'><a href="{{ route('categories.edit', $category->id) }}" class="btn btn-success btn-sm">Edit</a></div>

@@ -5,7 +5,7 @@ Create Category
 @endsection
 
 @section('pagename')
-Laravel Project
+Capstone Project
 @endsection
 
 @section('scripts')

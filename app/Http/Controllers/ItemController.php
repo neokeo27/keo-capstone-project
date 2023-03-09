@@ -18,7 +18,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('title', 'ASC')->paginate(10);
+        //$items = Item::orderBy('title', 'ASC')->paginate(10);
+        $items = Item::orderBy('id', 'ASC')->paginate(20);
         return view('items.index')->with('items', $items);
     }
 
@@ -74,6 +75,11 @@ class ItemController extends Controller
             $image = Image::make($image);
             Storage::disk('public')->put($location, (string) $image->encode());
             $item->picture = $filename;
+
+            $thumbImage = $image->resize(200, 200);
+            $thumbFilename = 'tn_' . $filename;
+            $thumbLocation = 'images/items/' . $thumbFilename;
+            Storage::disk('public')->put($thumbLocation, (string) $thumbImage->encode());
         }
 
         $item->save(); //saves to DB
@@ -154,6 +160,11 @@ class ItemController extends Controller
             }
 
             $item->picture = $filename;
+
+            $thumbImage = $image->resize(200, 200);
+            $thumbFilename = 'tn_' . $filename;
+            $thumbLocation = 'images/items/' . $thumbFilename;
+            Storage::disk('public')->put($thumbLocation, (string) $thumbImage->encode());
         }
 
         $item->save(); //saves to DB
@@ -176,15 +187,13 @@ class ItemController extends Controller
         if (isset($item->picture)) {
             $oldFilename = $item->picture;
             Storage::delete('public/images/items/' . $oldFilename);
+            $oldThumbFilename = "tn_" . $item->picture;
+            Storage::delete('public/images/items/' . $oldThumbFilename);
         }
         $item->delete();
 
         Session::flash('success', 'The item has been deleted');
 
         return redirect()->route('items.index');
-    }
-
-    public function count()
-    {
     }
 }
