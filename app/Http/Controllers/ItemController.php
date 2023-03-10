@@ -76,7 +76,9 @@ class ItemController extends Controller
             Storage::disk('public')->put($location, (string) $image->encode());
             $item->picture = $filename;
 
-            $thumbImage = $image->resize(200, 200);
+            $thumbImage = $image->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            });
             $thumbFilename = 'tn_' . $filename;
             $thumbLocation = 'images/items/' . $thumbFilename;
             Storage::disk('public')->put($thumbLocation, (string) $thumbImage->encode());
@@ -161,7 +163,9 @@ class ItemController extends Controller
 
             $item->picture = $filename;
 
-            $thumbImage = $image->resize(200, 200);
+            $thumbImage = $image->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            });
             $thumbFilename = 'tn_' . $filename;
             $thumbLocation = 'images/items/' . $thumbFilename;
             Storage::disk('public')->put($thumbLocation, (string) $thumbImage->encode());

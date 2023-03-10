@@ -63,7 +63,7 @@ Capstone Project
 @else
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<h1>Category List Unavailable</h1>
+			<h1>Page Unavailable</h1>
 			<p>Please login to add/view categories.</p>
 		</div>
 	</div>	

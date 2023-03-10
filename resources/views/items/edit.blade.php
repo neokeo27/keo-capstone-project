@@ -17,6 +17,7 @@ Capstone Project
 @endsection
 
 @section('content')
+@if (Auth::user())
 <x-head.tinymce-config/>
 	<div class="row">
 		{!! Form::model($item, ['route' => ['items.update', $item->id], 'method'=>'PUT', 'data-parsley-validate' => '', 'files' => true]) !!}
@@ -88,6 +89,13 @@ Capstone Project
 		</div>
 		{!! Form::close() !!}
 	</div>
-
+@else
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Page Unavailable</h1>
+			<p>Please login.</p>
+		</div>
+	</div>	
+@endif
 
 @endsection

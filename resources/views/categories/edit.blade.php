@@ -17,7 +17,7 @@ Capstone Project
 @endsection
 
 @section('content')
-	
+	@if (Auth::user())	
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<h1>Edit Category</h1>
@@ -46,5 +46,12 @@ Capstone Project
 
 		</div>
 	</div>
-
+@else
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Page Unavailable</h1>
+			<p>Please login.</p>
+		</div>
+	</div>	
+@endif
 @endsection

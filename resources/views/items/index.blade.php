@@ -55,8 +55,8 @@ Capstone Project
 @else
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<h1>Item List Unavailable</h1>
-			<p>Please login to add/view items.</p>
+			<h1>Page Unavailable</h1>
+			<p>Please login.</p>
 		</div>
 	</div>	
 @endif
