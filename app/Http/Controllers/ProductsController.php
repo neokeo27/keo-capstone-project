@@ -16,6 +16,8 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         //
@@ -26,12 +28,13 @@ class ProductsController extends Controller
 
     public function show($id)
     {
-        $category = Category::where('id', $id)->first();
-        if ($category) {
-            $items = $category->items()->get();
-            return view('products', compact('items', 'category'));
+        if (Category::where('id', $id)->exists()) {
+            $category = Category::where('id', $id)->first();
+            $categories = Category::orderby('name', 'ASC')->paginate(20);
+            $items = Item::where('category_id', $category->id)->get();
+            return view('products', compact('category', 'items', 'categories'));
         } else {
-            return redirect()->back();
+            return redirect("/");
         }
     }
 }

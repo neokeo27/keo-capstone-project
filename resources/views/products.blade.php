@@ -9,15 +9,9 @@ Capstone Project
 @endsection
 
 @section('content')
-{{-- @if ($selectedCategory == 0)
-
-
-@elseif ($selectedCategory == 1)
-
-@endif --}}
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<h1>All Products</h1>
+			<h1>Products</h1>
 		</div>
 
 		<div class="col-md-12">
@@ -26,21 +20,21 @@ Capstone Project
 	</div>
 
 	<div class="row">
-		<div class="col-sm-1">
+		<div class="col-sm-2">
 			<table class="table">
 				<thead>
 					<th>Categories</th>
 				</thead>
 				<tbody>
+					<tr><td><a href="{{url('/products/')}}">ALL</a></td></tr>
 					@foreach ($categories as $category)
-					{{-- <tr><td><a href="products/{{$category->id}}" >{{$category->name}}</a></td></tr> --}}
 					<tr><td><a href="{{ url('/products/' . $category->id)}}">{{$category->name}}</a></td></tr>
 					@endforeach					
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-8 col-md-offset-2">
-				@forelse ($items as $item)
+		<div class="col-md-8 col-md-offset-1">
+				@if ($items)
 				<table class="table">
 					<tbody>
 					<?php
@@ -48,8 +42,8 @@ Capstone Project
 					echo "<tr>";
 					foreach ($items as $item)
 					{
-						echo "<td>" . "<a href=''><img src=" . Storage::url('images/items/tn_'.$item->picture) . " alt='" . $item->title . "'></a><br/>";
-						echo "<a href=''>" . $item->title . "</a><br/>";
+						echo "<td>" . "<a href='/products/". $item->category_id . "/" . $item->id ."'><img src=" . Storage::url('images/items/tn_'.$item->picture) . " alt='" . $item->title . "'></a><br/>";
+						echo  "<a href='/products/". $item->category_id . "/" . $item->id ."'>" . $item->title . "</a><br/>";
 						echo "Price: $" . $item->price . "<br/>";
 						echo "<a href='' class='btn btn-success btn-sm'>Buy</a></td>"; 
 						$counter++;
@@ -63,11 +57,11 @@ Capstone Project
 					?>
 					</tbody>
 				</table>
-				@empty
+				@else
 				<div>
 					<h4>No Products Available for {{ $category->name }}</h4>
 				</div>
-				@endforelse
+				@endif
 		</div>
 	</div>
 	
