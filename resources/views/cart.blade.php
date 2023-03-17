@@ -1,7 +1,7 @@
 @extends('common') 
 
 @section('pagetitle')
-Products
+Shopping Cart
 @endsection
 
 @section('pagename')
@@ -9,50 +9,61 @@ Capstone Project
 @endsection
 
 @section('content')
-	@if (Auth::user())
+@if (Auth::user())
 	<div class="row">
-		{{-- <div class="col-md-8 col-md-offset-2">
-			<h1>All Items</h1>
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Shopping Cart</h1>
 		</div>
-		<div class="col-md-2">
-			<a href="{{ route('items.create') }}" class="btn btn-med btn-block btn-primary btn-h1-spacing">Create New Item</a>
-		</div>
+
 		<div class="col-md-12">
 			<hr />
-		</div> --}}
+		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			{{-- <table class="table">
+		<div class="col-md-8 col-md-offset-1">
+			<table class="table">
 				<thead>
-					<th>#</th>
-					<th>Title</th>					
-					<th>Created At</th>
-					<th>Last Modified</th>
-					<th>Category #</th>
-					<th></th>
+					<tr>
+						<th>Product</th>
+						<th>Price</th>
+						<th>Quantity</th>
+					</tr>
 				</thead>
 				<tbody>
-					@foreach ($items as $item)
-						<tr>
-							<th>{{ $item->id }}</th>
-							<td>{{ $item->title }}</td>							
-							<td style="width: 100px;">{{ date('M j, Y', strtotime($item->created_at)) }}</td>
-							<td>{{ date('M j, Y', strtotime($item->updated_at)) }}</td>
-							<td>{{ $item->category_id }}</td>
-							<td style="width: 175px;"><div style='float:left; margin-right:5px;'><a href="{{ route('items.edit', $item->id) }}" class="btn btn-success btn-sm">Edit</a></div><div style='float:left;'>
-								{!! Form::open(['route' => ['items.destroy', $item->id], 'method'=>'DELETE']) !!}
-							    	{{ Form::submit('Delete', ['class'=>'btn btn-sm btn-danger btn-block', 'style'=>'', 'onclick'=>'return confirm("Are you sure?")']) }}
-								{!! Form::close() !!}</div>
-							</td>
-						</tr>
-					@endforeach
+					 @foreach ($carts as $cart)
+					<tr>
+						<td>{{ $cart->item->title }}</td>
+						<td>${{ $cart->item->price }}</td>
+						<td>
+							<form action="{{ route('updateCart', $cart->id) }}" method="POST">
+								@csrf
+								@method('PUT')
+								<input type="number" name="quantity" value="{{ $cart->quantity }}" min="1" max="100">
+								<button type="submit">Update</button>
+							</form>
+						</td>
+						<td>${{ $cart->quantity * $cart->item->price }}</td>
+						<td>
+							<form action="{{ route('removeCart', $cart->id) }}" method="POST">
+								@csrf
+								@method('DELETE')
+								<button type="submit">Remove</button>
+							</form>
+						</td>
+					</tr>
+                    @endforeach
 				</tbody>
-			</table> --}}
+			</table>
+			<p>Subtotal: ${{ $subtotal }}</p>
 		</div>
 	</div>
 @else
-	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Page Unavailable</h1>
+			<p>Please login.</p>
+		</div>
+	</div>	
 @endif
 @endsection

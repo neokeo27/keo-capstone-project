@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;

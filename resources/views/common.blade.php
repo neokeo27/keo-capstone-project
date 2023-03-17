@@ -40,6 +40,7 @@
             <li class="{{ Request::is('items/*') || Request::is('items') ? "active" : "" }}"><a href="/items">Items</a></li>
             <li class="{{ Request::is('products/*') || Request::is('products') ? "active" : "" }}"><a href="/products">Shop</a></li>
             <li class="{{ Request::is('cart/*') || Request::is('cart') ? "active" : "" }} "><a href="/cart">Cart</a></li>
+            {{-- <li class="{{ Request::is('cart/*') || Request::is('cart') ? "active" : "" }} "><a href="/cart">Cart<span class="badge badge-pill badge-danger">{{ session()->get('cartQuantity', 0) }}</span></a></li> --}}
           </ul>
           <ul class="nav navbar-nav navbar-right">
           </ul>

@@ -45,7 +45,7 @@ Capstone Project
 						echo "<td>" . "<a href='/products/". $item->category_id . "/" . $item->id ."'><img src=" . Storage::url('images/items/tn_'.$item->picture) . " alt='" . $item->title . "'></a><br/>";
 						echo  "<a href='/products/". $item->category_id . "/" . $item->id ."'>" . $item->title . "</a><br/>";
 						echo "Price: $" . $item->price . "<br/>";
-						echo "<a href='' class='btn btn-success btn-sm'>Buy</a></td>"; 
+						echo "<a href='/cart/add/" . $item->id . "' class='btn btn-success btn-sm'>Add To Cart</a></td>"; 
 						$counter++;
 
 						if ($counter % 5 == 0) {

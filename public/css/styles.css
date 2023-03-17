@@ -3,8 +3,8 @@
 }
 
 .navbar-default {
-	background-color: #ed2300;
-	border-color: #ed2300;
+	background-color: #034b7e;
+	border-color: #034b7e;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -30,6 +30,10 @@ ul.navbar-nav li.active {
 	margin-bottom:100px; 
 	margin-left:20px; 
 	margin-right:20px; 
+}
+
+.badge {
+	background-color: rgb(255, 52, 52);
 }
 
 @media (max-width: 768px){

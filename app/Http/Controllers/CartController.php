@@ -2,84 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return view('cart');
+        $session_id = $request->session()->getId();
+        $ip_address = $request->ip();
+
+        $carts = Cart::with('item')->where('session_id', $session_id)->get();
+        $subtotal = 0;
+
+        foreach ($carts as $cart) {
+            $subtotal += $cart->quantity * $cart->item->price;
+        }
+
+        session()->put('quantity', $cart->quantity);
+
+        return view('cart', compact('carts', 'subtotal'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add(Request $request, $id)
     {
-        //
+        $session_id = $request->session()->getId();
+        $ip_address = $request->ip();
+        $cart = Cart::where('session_id', $session_id)->where('item_id', $id)->first();
+
+        if (!$cart) {
+            $cart = new Cart();
+            $cart->session_id = $session_id;
+            $cart->item_id = $id;
+            $cart->quantity = 1;
+            $cart->ip_address = $ip_address;
+        } else {
+            $cart->quantity += 1;
+        }
+
+        $cart->save();
+
+        return redirect()->back()->with('success', 'Item added to cart!');
+
+
+        // session()->put('cart', $cart);
+        // session()->put('session_id', session()->getId());
+        // session()->put('ip_address', request()->ip());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request, $cart_id)
     {
-        //
+        $cart = Cart::findOrFail($cart_id);
+        $cart->quantity = $request->input('quantity');
+        $cart->save();
+
+        return redirect()->back()->with('success', 'Cart Updated');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function remove($cart_id)
     {
-        //
-    }
+        $cart = Cart::findOrFail($cart_id);
+        $cart->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->back()->with('success', 'Item removed from cart.');
     }
 }
