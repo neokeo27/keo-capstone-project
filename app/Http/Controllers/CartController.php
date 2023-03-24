@@ -19,9 +19,10 @@ class CartController extends Controller
 
         foreach ($carts as $cart) {
             $subtotal += $cart->quantity * $cart->item->price;
+            session()->put('quantity', $cart->quantity);
         }
 
-        session()->put('quantity', $cart->quantity);
+
 
         return view('cart', compact('carts', 'subtotal'));
     }
@@ -55,6 +56,9 @@ class CartController extends Controller
     public function update(Request $request, $cart_id)
     {
         $cart = Cart::findOrFail($cart_id);
+
+
+
         $cart->quantity = $request->input('quantity');
         $cart->save();
 
@@ -67,5 +71,21 @@ class CartController extends Controller
         $cart->delete();
 
         return redirect()->back()->with('success', 'Item removed from cart.');
+    }
+
+    public function clearCart()
+    {
+        //Cart::truncate();
+        $sessionId = Session::getId();
+        $cartItems = Cart::where('session_id', $sessionId)->get();
+
+        foreach ($cartItems as $cartItem) {
+            $cartItem->delete();
+        }
+        return redirect()->route('cart')->with('success', 'Cart has been cleared.');
+    }
+
+    public function checkOrder()
+    {
     }
 }
