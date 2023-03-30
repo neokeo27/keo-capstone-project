@@ -2,31 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
-use App\Models\Cart;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Session;
-use Intervention\Image\Facades\Image;
 
 class ProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-
+    //show list of products
     public function index()
     {
-        //
         $categories = Category::orderby('name', 'ASC')->paginate(20);
         $items = Item::orderby('id', 'ASC')->paginate(20);
         return view('products')->with('categories', $categories)->with('items', $items);
     }
 
+    //show products by category selected
     public function show($id)
     {
         if (Category::where('id', $id)->exists()) {
@@ -37,5 +26,12 @@ class ProductsController extends Controller
         } else {
             return redirect("/");
         }
+    }
+
+    //show selected product info page
+    public function showItem($category_id, $id)
+    {
+        $item = Item::where('id', $id)->first();
+        return view('productView')->with('item', $item);
     }
 }

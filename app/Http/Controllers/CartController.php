@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
+    //show cart page
     public function index(Request $request)
     {
         $session_id = $request->session()->getId();
@@ -22,11 +23,10 @@ class CartController extends Controller
             session()->put('quantity', $cart->quantity);
         }
 
-
-
         return view('cart', compact('carts', 'subtotal'));
     }
 
+    //add items to cart
     public function add(Request $request, $id)
     {
         $session_id = $request->session()->getId();
@@ -46,25 +46,19 @@ class CartController extends Controller
         $cart->save();
 
         return redirect()->back()->with('success', 'Item added to cart!');
-
-
-        // session()->put('cart', $cart);
-        // session()->put('session_id', session()->getId());
-        // session()->put('ip_address', request()->ip());
     }
 
+    //update quantity of selected item in cart
     public function update(Request $request, $cart_id)
     {
         $cart = Cart::findOrFail($cart_id);
-
-
-
         $cart->quantity = $request->input('quantity');
         $cart->save();
 
         return redirect()->back()->with('success', 'Cart Updated');
     }
 
+    //remove item from cart
     public function remove($cart_id)
     {
         $cart = Cart::findOrFail($cart_id);
@@ -73,19 +67,11 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Item removed from cart.');
     }
 
+    //clear all items in cart
     public function clearCart()
     {
-        //Cart::truncate();
-        $sessionId = Session::getId();
-        $cartItems = Cart::where('session_id', $sessionId)->get();
+        Cart::truncate();
 
-        foreach ($cartItems as $cartItem) {
-            $cartItem->delete();
-        }
         return redirect()->route('cart')->with('success', 'Cart has been cleared.');
-    }
-
-    public function checkOrder()
-    {
     }
 }
