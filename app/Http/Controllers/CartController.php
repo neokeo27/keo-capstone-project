@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Cart;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
@@ -44,6 +43,7 @@ class CartController extends Controller
         Log::info('Cart Session ID: ' . $sessionId);
         $cart = Cart::where('session_id', $sessionId)->where('item_id', $id)->first();
 
+        //if cart doesnt exist then create new one
         if (!$cart) {
             $cart = new Cart();
             $cart->session_id = $sessionId;

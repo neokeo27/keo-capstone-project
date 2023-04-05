@@ -34,34 +34,34 @@ Capstone Project
 			</table>
 		</div>
 		<div class="col-md-8 col-md-offset-1">
-				@if ($items)
-				<table class="table">
-					<tbody>
-					<?php
-					$counter = 0;
-					echo "<tr>";
-					foreach ($items as $item)
-					{
-						echo "<td>" . "<a href='/products/". $item->category_id . "/" . $item->id ."'><img src=" . Storage::url('images/items/tn_'.$item->picture) . " alt='" . $item->title . "'></a><br/>";
-						echo  "<a href='/products/". $item->category_id . "/" . $item->id ."'>" . $item->title . "</a><br/>";
-						echo "Price: $" . $item->price . "<br/>";
-						echo "<a href='/cart/add/" . $item->id . "' class='btn btn-success btn-sm'>Add To Cart</a></td>"; 
-						$counter++;
+			@if ($items)
+			<table class="table">
+				<tbody>
+				<?php
+				$counter = 0;
+				echo "<tr>";
+				foreach ($items as $item)
+				{
+					echo "<td>" . "<a href='/products/". $item->category_id . "/" . $item->id ."'><img src=" . Storage::url('images/items/tn_'.$item->picture) . " alt='" . $item->title . "'></a><br/>";
+					echo  "<a href='/products/". $item->category_id . "/" . $item->id ."'>" . $item->title . "</a><br/>";
+					echo "Price: $" . $item->price . "<br/>";
+					echo "<a href='/cart/add/" . $item->id . "' class='btn btn-success btn-sm'>Add To Cart</a></td>"; 
+					$counter++;
 
-						if ($counter % 5 == 0) {
-							echo "</tr><tr>";
-						} else {
-							continue;
-						}
+					if ($counter % 5 == 0) {
+						echo "</tr><tr>";
+					} else {
+						continue;
 					}
-					?>
-					</tbody>
-				</table>
-				@else
-				<div>
-					<h4>No Products Available for {{ $category->name }}</h4>
-				</div>
-				@endif
+				}
+				?>
+				</tbody>
+			</table>
+			@else
+			<div>
+				<h4>No Products Available for {{ $category->name }}</h4>
+			</div>
+			@endif
 		</div>
 	</div>
 	

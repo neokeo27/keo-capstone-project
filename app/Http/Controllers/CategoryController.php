@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Item;
 use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
@@ -110,7 +109,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = \App\Models\Category::find($id);
+        $category = Category::find($id);
         if ($category != null) {
             //if ($category->items->count() == 0) {
             $category->delete();
