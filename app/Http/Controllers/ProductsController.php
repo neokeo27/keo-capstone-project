@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Item;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductsController extends Controller
 {
     //show list of products
-    public function index()
+    public function index(Request $request)
     {
+        $session_id = $request->session()->getId();
+        Log::info('Initial Session ID: ' . $session_id);
         $categories = Category::orderby('name', 'ASC')->paginate(20);
         $items = Item::orderby('id', 'ASC')->paginate(20);
         return view('products')->with('categories', $categories)->with('items', $items);

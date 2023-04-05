@@ -9,7 +9,6 @@ Capstone Project
 @endsection
 
 @section('content')
-@if (Auth::user())
 <div class="col-sm-2">
     <table class="table">
         <tbody>
@@ -40,13 +39,5 @@ Capstone Project
         </div>
         @endif
 </div>
-@else
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<h1>Page Unavailable</h1>
-			<p>Please login.</p>
-		</div>
-	</div>	
-@endif
 
 @endsection

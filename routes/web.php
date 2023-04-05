@@ -36,3 +36,5 @@ Route::put('/cart/update/{id}', [App\Http\Controllers\CartController::class, 'up
 Route::post('/cart-clear', [App\Http\Controllers\CartController::class, 'clearCart'])->name('clearCart');
 Route::post('/check-order', [App\Http\Controllers\OrderController::class, 'checkOrder'])->name('checkOrder');
 Route::get('/confirm', [App\Http\Controllers\OrderController::class, 'thanks'])->name('thanks');
+Route::get('/orders', [App\Http\Controllers\OrderController::class, 'orders'])->name('orders');
+Route::get('/order/{order_id}', [App\Http\Controllers\OrderController::class, 'viewOrder'])->name('viewOrder');

@@ -9,9 +9,7 @@ Capstone Project
 @endsection
 
 @section('content')
-@if(!session('session_id'))
-    {{ redirect()->route('product.index') }}
-@endif
+
 <div class="col-md-8 col-sm-offset-2">
        <h2>Receipt</h2>
 
@@ -39,13 +37,12 @@ Capstone Project
        @endforeach
        </tbody>
        <tfoot>
-              <tr>
-                     <td colspan="2"><strong>Total Cost:</strong></td>
-                     <td><strong>${{ $totalCost }}</strong></td>
-              </tr>
+        <tr>
+                <td colspan="2"><strong>Total Cost:</strong></td>
+                <td><strong>${{ $totalCost }}</strong></td>
+        </tr>
        </tfoot>
        </table>
 </div>
-{{ session()->forget('session_id') }}
 
 @endsection

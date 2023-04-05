@@ -10,6 +10,7 @@ class ItemSold extends Model
     use HasFactory;
 
     public $table = 'items_sold';
+    public $timestamps = false;
     protected $fillable = [
         'item_id',
         'order_id',
